@@ -32,7 +32,7 @@ describe('HTTP server', function() {
 
   it("should greet for named urls", function(done) {
     chai.request(host)
-      .get('/saul')
+      .get('/greet/saul')
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
@@ -43,11 +43,22 @@ describe('HTTP server', function() {
 
   it("should not like numbers (and other symbols)", function(done) {
     chai.request(host)
-      .get('/345')
+      .get('/greet/345')
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(400);
         expect(res.text).to.eql('Not a valid name. Nice try.');
+        done();
+      });
+  });
+
+  it("should not take urls that aren't blank or start with 'greet' or 'time'", function(done) {
+    chai.request(host)
+      .get('/dfbiwerh8')
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(404);
+        expect(res.text).to.eql('Error 404\nPage not found.');
         done();
       });
   });
