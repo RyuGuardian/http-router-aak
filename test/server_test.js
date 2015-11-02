@@ -1,4 +1,4 @@
-'use_strict';
+'use strict';
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
